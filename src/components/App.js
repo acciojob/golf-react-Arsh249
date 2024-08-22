@@ -11,7 +11,6 @@ class App extends Component {
         };
         this.renderChoice = this.renderBallOrButton.bind(this)
         this.buttonClickHandler = this.buttonClickHandler.bind(this)
-        this.handleKeyDown = this.handleKeyDown.bind(this);
     };
 
     buttonClickHandler() {
@@ -27,15 +26,14 @@ class App extends Component {
 
     // bind ArrowRight keydown event
     componentDidMount() {
-        document.addEventListener('keydown', this.handleKeyDown);
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight' || event.keyCode === 39) {
+              this.setState((prevState) => ({
+                ballPosition: prevState.ballPosition + 5,
+              }));
+            }
+          });
     }
-    handleKeyDown = (event) => {
-        if (event.key === 'ArrowRight' || event.keyCode === 39) {
-          this.setState((prevState) => ({
-            ballPosition: prevState.ballPosition + 5,
-          }));
-        }
-      };
     
       // Lifecycle method to remove the event listener when the component is unmounted
       componentWillUnmount() {
